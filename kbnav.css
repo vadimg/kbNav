@@ -1,0 +1,10 @@
+#kbNavInput {
+	font-size: x-large;
+	width: 30pt;
+	position: fixed; /* no worky in ie6 */
+	top: 10px;
+	left: 10px;
+	border: solid;
+	border-width: 3px;
+	border-color: #8080ff;
+}
