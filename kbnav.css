@@ -1,5 +1,5 @@
 /* an active kbNav prompt */
-#kbNavInput {
+#kbNav-prompt {
     font-family: Monaco, Andale Mono, Courier New, monospace;
     font-size: x-large;
     width: 36pt;

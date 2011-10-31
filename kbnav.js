@@ -1,5 +1,7 @@
 (function(){
 
+var PROMPT_ID = "kbNav-prompt";
+
 var inited,
 $prompt,
 prompt_init_width,
@@ -136,10 +138,10 @@ function init(options) {
 
     inited = true;
 
-    if(!$("#kbNavInput").length)
-        $("body").append('<input type="text" id="kbNavInput" class="kbNav-inactive" maxlength="20"/>');
+    if(!$('#' + PROMPT_ID).length)
+        $("body").append('<input type="text" id="' + PROMPT_ID + '" class="kbNav-inactive" maxlength="20"/>');
 
-    $prompt = $("#kbNavInput");
+    $prompt = $('#' + PROMPT_ID);
 
     $prompt.autoResize();
 
