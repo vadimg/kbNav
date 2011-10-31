@@ -132,7 +132,7 @@ function resizeCommandline()
     if(len < 3)
         len = 3;
 
-    $prompt.css("width", 10*len + "pt");
+    $prompt.css("width", 12*len + "pt");
 }
 
 function isNoFocus()
