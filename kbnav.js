@@ -16,7 +16,7 @@ overlays = [];
 
 function ActionGroup() {
     this.actions = {}; // name -> [func]
-    this.visible = true;
+    this.active = true;
 }
 
 ActionGroup.prototype = {
@@ -46,7 +46,7 @@ function getAction(sc) {
     var fs = [];
     for(var k in actionGroups) {
         var group = actionGroups[k];
-        if(group.visible) {
+        if(group.active) {
             var f = group.actions[sc];
             if(f !== undefined) {
                 for(var i=0, l=f.length; i < l; i++) {
@@ -347,25 +347,25 @@ window.kbNav = kbNav = {
     /*
      * Creates an overlay of actions ontop of all current actionGroups.
      * @param name of the overlay
-     * @param bubble if this is true, actions the groups below will be visible. Otherwise, only actions in the overlay will be visible.
+     * @param bubble if this is true, the groups below will be active. Otherwise, only actions in the overlay will be active.
      * @returns the overlay
      */
     createOverlay: function(name, bubble) {
-        var visible = [];
+        var oldGroups = [];
         for(var sc in actionGroups) {
-            var ag = actionGroups[sc];
-            if(ag.visible) {
-                visible.push(ag);
+            var group = actionGroups[sc];
+            if(group.active) {
+                oldGroups.push(group);
                 if(!bubble)
-                    ag.visible = false;
+                    group.active = false;
             }
         }
 
         var o = {
             oldDefault: defaultGroup,
             destroy: function() {
-                for(var i=0, l=visible.length; i < l; i++)
-                    visible[i].visible = true;
+                for(var i=0, l=oldGroups.length; i < l; i++)
+                    oldGroups[i].active = true;
 
                 kbNav.remove('|' + name);
 

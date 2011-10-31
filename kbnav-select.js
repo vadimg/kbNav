@@ -94,6 +94,7 @@ function getDropDownTop($target, $copy, isML) {
     var setTop;
     var setHeight;
     if(isML) {
+        // if multiline, place popup box on top of the select on the page
         var center = pos.top + height/2;
         var radius = targetHeight/2;
 
@@ -111,6 +112,7 @@ function getDropDownTop($target, $copy, isML) {
         }
     }
     else {
+        // if not, place popup box under the select on the page
         if(targetHeight <= spaceBelow) {
             setHeight = Math.min(targetHeight, spaceBelow);
             setTop = pos.top + height;
