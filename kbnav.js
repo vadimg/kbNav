@@ -11,13 +11,13 @@ defaultGroup = "default",
 overlays = [];
 
 
-function ActionGroup(){
+function ActionGroup() {
     this.actions = {}; // name -> [func]
     this.visible = true;
 }
 
 ActionGroup.prototype = {
-    add: function(name, f){
+    add: function(name, f) {
         if(this.actions[name] === undefined) {
             this.actions[name] = [];
         }
@@ -27,19 +27,19 @@ ActionGroup.prototype = {
 };
 
 // @returns a reasonably unique id, good enough for our purposes
-function uid(){
+function uid() {
     var randStr = Math.floor(Math.random()*1e16).toString(36);
     return 'UID:' + randStr + ":" + new Date().getTime();
 }
 
-function a_to_f(a, options){
+function a_to_f(a, options) {
     if(typeof a === 'function')
         return a;
 
     return actionize(a, options);
 }
 
-function isEmpty(map){
+function isEmpty(map) {
     for(var i in map)
         return false;
     return true;
@@ -61,25 +61,23 @@ function getAction(sc) {
     return fs;
 }
 
-function showCommand(firstChar, $focusBack){
+function showCommand(firstChar, $focusBack) {
     kbNav.showPrompt($focusBack);
     $prompt.one("keydown", firstChar, makeSureTheresOne).one("keyup", firstChar, makeSureTheresOne);
 }
 
-function makeSureTheresOne(event){
+function makeSureTheresOne(event) {
     if($prompt.val().length === 0)
         $prompt.val(event.data);
 }
 
-function hideCommand()
-{
+function hideCommand() {
     $prompt.css("visibility", "hidden");
     $prompt.keydown().keyup(); // fire the makeSureTheresOne events
     $prompt.val(""); // clear it for future use
 }
 
-function acceptInput(e)
-{
+function acceptInput(e) {
     if(e.ctrlKey || e.altKey)
         return;
 
@@ -94,17 +92,16 @@ function acceptInput(e)
     }
 }
 
-function escPressed(e){
+function escPressed(e) {
     var keycode = e.which;
     if(keycode === 27 && !isNoFocus()) { // esc
         $(document.activeElement).blur();
     }
 }
 
-function enterPressed(e){
+function enterPressed(e) {
     var keycode = e.which;
-    if(keycode === 13) // enter
-    {
+    if(keycode === 13) { // enter
         var val = $prompt.val();
 
         var x = getAction(val);
@@ -116,21 +113,20 @@ function enterPressed(e){
         }
         else {
             var oldcolor = $prompt.css("background-color");
-            $prompt.css("background-color", "#ff8080").one("keydown", oldcolor, function(e){
+            $prompt.css("background-color", "#ff8080").one("keydown", oldcolor, function(e) {
                 $prompt.css("background-color", oldcolor);
             });
         }
     }
 }
 
-function isNoFocus()
-{
+function isNoFocus() {
     var nodename = document.activeElement.nodeName.toLowerCase();
 
     return (nodename === "body" || nodename === "html");
 }
 
-function init(options){
+function init(options) {
     if(options !== undefined) {
         if(options.window !== undefined) {
             window = options.window;
@@ -162,7 +158,7 @@ function init(options){
 
 // everything below is non-commandprompt specific
 
-function setSelectionRange(input, selectionStart, selectionEnd){
+function setSelectionRange(input, selectionStart, selectionEnd) {
     if(input.setSelectionRange) {
         input.focus();
         input.setSelectionRange(selectionStart, selectionEnd);
@@ -184,8 +180,8 @@ function actionize(elem, data) {
     return f($o, data);
 }
 
-function actionHref($obj){
-    return function(){
+function actionHref($obj) {
+    return function() {
         var clickEvent = $.Event("click");
         $obj.mousedown().mouseup().trigger(clickEvent);
 //        alert(clickEvent.isDefaultPrevented() + "," + clickEvent.result);
@@ -216,42 +212,42 @@ function actionHref($obj){
     };
 }
 
-function actionButton($obj){
-    return function(){
+function actionButton($obj) {
+    return function() {
         $obj.mousedown();
         $obj.mouseup();
         $obj.click();
     };
 }
 
-function actionCheckBox($obj){
-    return function(){
+function actionCheckBox($obj) {
+    return function() {
         $obj.attr("checked", (!$obj.attr("checked")));
     };
 }
 
-function actionRadio($obj){
+function actionRadio($obj) {
     return function() {
         $obj.attr("checked", true);
     };
 }
 
-function actionFile($obj){
-    return function(){
+function actionFile($obj) {
+    return function() {
         $obj.focus();
     };
 }
 
 function actionText($obj, focusType) {
-    var selStart = function(){
+    var selStart = function() {
         return 0;
     },
-    selEnd = function(){
+    selEnd = function() {
         return $obj.val().length;
     };
 
     if(focusType)
-        switch(focusType.charAt(0)){
+        switch(focusType.charAt(0)) {
             case "s":
                 selEnd = selStart;
                 break;
@@ -260,7 +256,7 @@ function actionText($obj, focusType) {
                 break;
         }
 
-    return function(){
+    return function() {
         $obj.focus();
         setSelectionRange($obj[0], selStart(), selEnd());
     };
@@ -326,14 +322,14 @@ window.kbNav = kbNav = {
      * Shows the command prompt.
      * @param focusBack the dom element to return focus to after the prompt closes.
      */
-    showPrompt: function(focusBack){
+    showPrompt: function(focusBack) {
         $prompt.css({
             "visibility": "visible",
             "width": "30px"
         }).focus();
 
         if(focusBack !== undefined)
-            $prompt.blur(function(){
+            $prompt.blur(function() {
                 $(focusBack).focus();
             });
 
@@ -361,9 +357,9 @@ window.kbNav = kbNav = {
      * @param bubble if this is true, actions the groups below will be visible. Otherwise, only actions in the overlay will be visible.
      * @returns the overlay
      */
-    createOverlay: function(name, bubble){
+    createOverlay: function(name, bubble) {
         var visible = [];
-        for(var i in actionGroups){
+        for(var i in actionGroups) {
             var ag = actionGroups[i];
             if(ag.visible) {
                 visible.push(ag);
@@ -462,7 +458,7 @@ window.kbNav = kbNav = {
      * Add to or modify this if you want to create a custom labelizer for a tag.
      */
     processLabel: {
-        input: function(sc, $o){
+        input: function(sc, $o) {
             var type = $o.attr("type").toLowerCase(),
             defaultName = kbNav.defaultButtonLbl[type];
             kbNav.labelizeInput(sc, $o, defaultName);
@@ -475,7 +471,7 @@ window.kbNav = kbNav = {
      */
     processAction: {
         a: actionHref,
-        input: function($o, data){
+        input: function($o, data) {
             var type = $o.attr("type").toLowerCase();
             if(kbNav.defaultButtonLbl[type] !== undefined) {
                 // if defined, the element is a button
@@ -508,7 +504,7 @@ window.kbNav = kbNav = {
     /*
      * Labelizes any element where the text shown is the text between the opening and closing tag.
      */
-    labelizeInside: function(sc, $obj){
+    labelizeInside: function(sc, $obj) {
         var name = $obj.text(),
         prefix = sc + ") ";
 
@@ -520,7 +516,7 @@ window.kbNav = kbNav = {
     /*
      * Labelizes an input element, where the text shown is inside the value attribute.
      */
-    labelizeInput: function(sc, $obj, defaultName){
+    labelizeInput: function(sc, $obj, defaultName) {
         var prefix = sc + ") ";
         var placeholder = $obj.attr("placeholder");
         if(placeholder) {

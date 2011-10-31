@@ -2,7 +2,7 @@
 var kbNav = window.kbNav;
 
 function actionSelect($obj, autonum, nums) {
-    return function(){
+    return function() {
         var hasNums = false;
         $obj.focus();
         var $copy = $obj.clone();
@@ -16,7 +16,7 @@ function actionSelect($obj, autonum, nums) {
         kbNav.push();
         var $options = $("option", $copy);
         var i = 0;
-        $options.each(function(){
+        $options.each(function() {
             var opt = this,
             $o = $(opt),
             num = autonum ? i+1 :
@@ -24,7 +24,7 @@ function actionSelect($obj, autonum, nums) {
 
             if(num !== undefined) {
                 hasNums = true;
-                kbNav.register(num, function(){
+                kbNav.register(num, function() {
                     $copy.focus();
                     opt.selected = !opt.selected;
                 });
@@ -41,12 +41,12 @@ function actionSelect($obj, autonum, nums) {
 
         var openingCommandPrompt = false;
 
-        $copy.blur(function(){
+        $copy.blur(function() {
             if(!openingCommandPrompt) {
                 $box.remove();
                 kbNav.pop();
             }
-        }).keypress(function(e){
+        }).keypress(function(e) {
             var keycode = e.which;
             if(keycode === 27) // esc
                 $copy.blur();
@@ -56,8 +56,8 @@ function actionSelect($obj, autonum, nums) {
             }
         }).focus();
 
-        if(hasNums)
-            $copy.keydown(function(e){
+        if(hasNums) {
+            $copy.keydown(function(e) {
                 if(e.ctrlKey || e.altKey)
                     return;
 
@@ -65,11 +65,12 @@ function actionSelect($obj, autonum, nums) {
                 var input = String.fromCharCode(keycode);
                 if(input.match(/\w/)) {
                     openingCommandPrompt = true;
-                    kbNav.showPrompt($copy.get(0)).keyup(function(){
+                    kbNav.showPrompt($copy.get(0)).keyup(function() {
                         openingCommandPrompt = false;
                     });
                 }
             });
+        }
     };
 }
 
