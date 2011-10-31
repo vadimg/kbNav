@@ -435,9 +435,6 @@ window.kbNav = kbNav = {
     /*
      * The label that appears when no value tag has been set for a button,
      * because chrome returns a blank string when asking for a button's default label.
-     *
-     * Lists all input types that render as buttons,
-     * used to determine how to actionize input elements
      */
     defaultButtonLbl: {
         button: "",
@@ -466,15 +463,9 @@ window.kbNav = kbNav = {
         a: actionHref,
         input: function($o, data) {
             var type = $o.attr("type").toLowerCase();
-            if(kbNav.defaultButtonLbl[type] !== undefined) {
-                // if defined, the element is a button
-                return actionButton($o);
-            }
-            else {
-                var action = kbNav.inputAction[type];
-                if(action !== undefined)
-                    return action($o, data);
-            }
+            var action = kbNav.inputAction[type];
+            if(action !== undefined)
+                return action($o, data);
         },
         button: actionButton,
         textarea: function($o, data) {
@@ -491,7 +482,10 @@ window.kbNav = kbNav = {
         radio: actionRadio,
         file: actionFile,
         text: textfunc,
-        password: textfunc
+        password: textfunc,
+        button: actionButton,
+        submit: actionButton,
+        reset: actionButton
     },
 
     /*
