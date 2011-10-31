@@ -1,3 +1,4 @@
+/* an active kbNav prompt */
 #kbNavInput {
     font-family: Monaco, Andale Mono, Courier New, monospace;
     font-size: x-large;
@@ -16,10 +17,12 @@
     border-radius: 3px;
 }
 
+/* an inactive kbNav prompt */
 .kbNav-inactive {
     display: none;
 }
 
+/* a kbNav prompt with an invalid shortcut */
 .kbNav-invalid {
     background-color: #ff8080;
 }
