@@ -231,7 +231,9 @@ function actionFile($obj) {
     };
 }
 
-function actionText($obj, focusType) {
+function actionText($obj, data) {
+    var focusType = data.focusType;
+
     var selStart = function() {
         return 0;
     },
@@ -253,10 +255,6 @@ function actionText($obj, focusType) {
         $obj.focus();
         setSelectionRange($obj[0], selStart(), selEnd());
     };
-}
-
-function textfunc($o, data) {
-    return actionText($o, data.focusType);
 }
 
 function registerF(sc_ns, func, options) {
@@ -468,9 +466,7 @@ window.kbNav = kbNav = {
                 return action($o, data);
         },
         button: actionButton,
-        textarea: function($o, data) {
-            return actionText($o, data.focusType);
-        }
+        textarea: actionText
     },
 
     /*
@@ -481,8 +477,8 @@ window.kbNav = kbNav = {
         checkbox: actionCheckBox,
         radio: actionRadio,
         file: actionFile,
-        text: textfunc,
-        password: textfunc,
+        text: actionText,
+        password: actionText,
         button: actionButton,
         submit: actionButton,
         reset: actionButton
