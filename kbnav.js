@@ -39,12 +39,6 @@ function a_to_f(a, options) {
     return actionize(a, options);
 }
 
-function isEmpty(map) {
-    for(var i in map)
-        return false;
-    return true;
-}
-
 function getAction(sc) {
     var fs = [];
     for(var k in actionGroups) {
@@ -137,7 +131,7 @@ function init(options) {
 
     // test size of map to see if we should disable everything else
     // or if we already ran this
-    if(isEmpty(actionGroups) || inited)
+    if($.isEmptyObject(actionGroups) || inited)
         return;
 
     inited = true;
@@ -184,7 +178,6 @@ function actionHref($obj) {
     return function() {
         var clickEvent = $.Event("click");
         $obj.mousedown().mouseup().trigger(clickEvent);
-//        alert(clickEvent.isDefaultPrevented() + "," + clickEvent.result);
         if(clickEvent.result !== false) { // TODO: && !clickEvent.isDefaultPrevented() ? (shouldn't guarantee any behavior based on jquery)
             var target = $obj.attr("target"),
             targetMap = {
@@ -359,8 +352,8 @@ window.kbNav = kbNav = {
      */
     createOverlay: function(name, bubble) {
         var visible = [];
-        for(var i in actionGroups) {
-            var ag = actionGroups[i];
+        for(var sc in actionGroups) {
+            var ag = actionGroups[sc];
             if(ag.visible) {
                 visible.push(ag);
                 if(!bubble)
@@ -435,8 +428,8 @@ window.kbNav = kbNav = {
         else if(group !== undefined)
             delete actionGroups[group];
         else if(sc.length > 0)
-            for(var i in actionGroups)
-                delete actionGroups[i].events[sc];
+            for(var ns in actionGroups)
+                delete actionGroups[ns].events[sc];
     },
 
     /*
@@ -507,7 +500,6 @@ window.kbNav = kbNav = {
     labelizeInside: function(sc, $obj) {
         var name = $obj.text(),
         prefix = sc + ") ";
-
 
         if(name.substr(0, prefix.length) !== prefix)
             $obj.prepend(prefix);
