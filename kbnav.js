@@ -99,11 +99,11 @@ function enterPressed(e) {
     if(keycode === 13) { // enter
         var val = $prompt.val();
 
-        var x = getAction(val);
-        if(x.length > 0) {
+        var funcs = getAction(val);
+        if(funcs.length > 0) {
             $prompt.blur();
-            for(var i=0, l=x.length; i < l; i++) {
-                x[i]();
+            for(var i=0, l=funcs.length; i < l; i++) {
+                funcs[i]();
             }
         }
         else {
