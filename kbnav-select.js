@@ -86,6 +86,7 @@ function getDropDownTop($target, $copy, isML) {
     $elem.remove();
 
     // TODO: find better way of doing this :(
+    // safari doesn't return correct values for window.height()
     var windowHeight = $.browser.safari ? document.documentElement.clientHeight : $(window).height();
     var spaceAbove = pos.top - scrollTop;
     var spaceBelow = windowHeight - spaceAbove - height;
@@ -130,8 +131,7 @@ function getDropDownTop($target, $copy, isML) {
 }
 
 function copySelected(from, to) {
-    var len = from.length;
-    for(var i=0; i<len; i++) {
+    for(var i=0, l=from.length; i<l; i++) {
         to[i].selected = from[i].selected;
     }
 }

@@ -2,6 +2,7 @@
 
 var inited,
 $prompt,
+prompt_init_width,
 kbNav,
 window = this,
 $ = window.jQuery,
@@ -66,7 +67,7 @@ function makeSureTheresOne(event) {
 }
 
 function hideCommand() {
-    $prompt.css("visibility", "hidden");
+    $prompt.addClass("kbNav-inactive");
     $prompt.keydown().keyup(); // fire the makeSureTheresOne events
     $prompt.val(""); // clear it for future use
 }
@@ -106,9 +107,8 @@ function enterPressed(e) {
             }
         }
         else {
-            var oldcolor = $prompt.css("background-color");
-            $prompt.css("background-color", "#ff8080").one("keydown", oldcolor, function(e) {
-                $prompt.css("background-color", oldcolor);
+            $prompt.addClass('kbNav-invalid').one("keydown", function() {
+                $prompt.removeClass('kbNav-invalid');
             });
         }
     }
@@ -137,13 +137,13 @@ function init(options) {
     inited = true;
 
     if(!$("#kbNavInput").length)
-        $("body").append('<input type="text" id="kbNavInput" maxlength="20" style="visibility:hidden"/>');
+        $("body").append('<input type="text" id="kbNavInput" class="kbNav-inactive" maxlength="20"/>');
 
     $prompt = $("#kbNavInput");
 
-    $prompt.css("visibility", "hidden").blur(hideCommand).keyup(enterPressed);
-
     $prompt.autoResize();
+
+    $prompt.blur(hideCommand).keyup(enterPressed);
 
     $(document).keypress(acceptInput);
 
@@ -261,6 +261,7 @@ function registerF(sc_ns, func, options) {
     var sc_ns_a = String(sc_ns).split('|'),
     sc = sc_ns_a[0],
     group = defaultGroup;
+
     if(sc_ns_a.length > 1)
         group = sc_ns_a[1];
     else if(options && options.group)
@@ -314,10 +315,9 @@ window.kbNav = kbNav = {
      * @param focusBack the dom element to return focus to after the prompt closes.
      */
     showPrompt: function(focusBack) {
-        $prompt.css({
-            "visibility": "visible",
-            "width": "30px"
-        }).focus();
+        $prompt.width('20pt'); // to get a nice sliding animation when it comes out
+
+        $prompt.removeClass("kbNav-inactive").focus();
 
         if(focusBack !== undefined)
             $prompt.blur(function() {
@@ -515,7 +515,7 @@ window.kbNav = kbNav = {
 
             // if the name was already labelized we don't need to do it again
             // this handles the "back" behavior in chrome (and fixes an "unfixable" bug in linux chrome)
-            // caveat, if the button already is prefixed, it won't add a prefix
+            // caveat: if the button already is prefixed, it won't add a prefix
             if(name.substr(0, prefix.length) !== prefix)
                 $obj.val(prefix + name);
         }
