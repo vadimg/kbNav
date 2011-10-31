@@ -121,18 +121,6 @@ function enterPressed(e){
             });
         }
     }
-    else
-        resizeCommandline();
-}
-
-function resizeCommandline()
-{
-    var len = $prompt.val().length + 1;
-
-    if(len < 3)
-        len = 3;
-
-    $prompt.css("width", 12*len + "pt");
 }
 
 function isNoFocus()
@@ -164,6 +152,8 @@ function init(options){
     $prompt = $("#kbNavInput");
 
     $prompt.css("visibility", "hidden").blur(hideCommand).keyup(enterPressed);
+
+    $prompt.autoResize();
 
     $(document).keypress(acceptInput);
 
