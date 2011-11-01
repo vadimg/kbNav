@@ -1,6 +1,6 @@
 (function(){
 
-var PROMPT_ID = "kbNav-prompt";
+var PROMPT_ID = 'kbNav-prompt';
 
 var inited,
 $prompt,
@@ -10,7 +10,7 @@ window = this,
 $ = window.jQuery,
 document = window.document,
 actionGroups = {}, // name -> ActionGroup
-defaultGroup = "default",
+defaultGroup = 'default',
 overlays = [];
 
 
@@ -32,7 +32,7 @@ ActionGroup.prototype = {
 // @returns a reasonably unique id, good enough for our purposes
 function uid() {
     var randStr = Math.floor(Math.random()*1e16).toString(36);
-    return 'UID:' + randStr + ":" + new Date().getTime();
+    return 'UID:' + randStr + ':' + new Date().getTime();
 }
 
 function a_to_f(a, options) {
@@ -63,7 +63,7 @@ function showCommand(firstChar) {
     kbNav.showPrompt();
 
     // needed because in firefox, the prompt will not get the first character
-    $prompt.one("keydown", firstChar, ensureOneChar).one("keyup", firstChar, ensureOneChar);
+    $prompt.one('keydown', firstChar, ensureOneChar).one('keyup', firstChar, ensureOneChar);
 }
 
 // makes sure there's a character in the prompt
@@ -73,9 +73,9 @@ function ensureOneChar(event) {
 }
 
 function hideCommand() {
-    $prompt.addClass("kbNav-inactive");
+    $prompt.addClass('kbNav-inactive');
     $prompt.keydown().keyup(); // fire the ensureOneChar events
-    $prompt.val(""); // clear it for future use
+    $prompt.val(''); // clear it for future use
 }
 
 function acceptInput(e) {
@@ -115,7 +115,7 @@ function onKeyUp(e) {
             }
         }
         else {
-            $prompt.addClass('kbNav-invalid').one("keydown", function() {
+            $prompt.addClass('kbNav-invalid').one('keydown', function() {
                 $prompt.removeClass('kbNav-invalid');
             });
         }
@@ -126,7 +126,7 @@ function onKeyUp(e) {
 function hasNoFocus() {
     var nodename = document.activeElement.nodeName.toLowerCase();
 
-    return (nodename === "body" || nodename === "html");
+    return (nodename === 'body' || nodename === 'html');
 }
 
 function init(options) {
@@ -146,7 +146,7 @@ function init(options) {
     inited = true;
 
     if(!$('#' + PROMPT_ID).length)
-        $("body").append('<input type="text" id="' + PROMPT_ID + '" class="kbNav-inactive" maxlength="20"/>');
+        $('body').append('<input type="text" id="' + PROMPT_ID + '" class="kbNav-inactive" maxlength="20"/>');
 
     $prompt = $('#' + PROMPT_ID);
 
@@ -186,20 +186,20 @@ function actionize(elem, data) {
 
 function actionHref($obj) {
     return function() {
-        var clickEvent = $.Event("click");
+        var clickEvent = $.Event('click');
         $obj.mousedown().mouseup().trigger(clickEvent);
         if(clickEvent.result !== false) { // TODO: && !clickEvent.isDefaultPrevented() ? (shouldn't guarantee any behavior based on jquery)
-            var target = $obj.attr("target"),
+            var target = $obj.attr('target'),
             targetMap = {
-                "_top": top,
-                "_self": self,
-                "_parent": parent
+                '_top': top,
+                '_self': self,
+                '_parent': parent
             },
-            href = $obj.attr("href");
+            href = $obj.attr('href');
 
             if(!target) // is blank if it doesn't exist
                 document.location = href;
-            else if(target === "_new" || target === "_blank") {
+            else if(target === '_new' || target === '_blank') {
                 var oWin = window.open(href, target);
                 if(oWin)
                     $(oWin).focus();
@@ -225,13 +225,13 @@ function actionButton($obj) {
 
 function actionCheckBox($obj) {
     return function() {
-        $obj.attr("checked", (!$obj.attr("checked")));
+        $obj.attr('checked', (!$obj.attr('checked')));
     };
 }
 
 function actionRadio($obj) {
     return function() {
-        $obj.attr("checked", true);
+        $obj.attr('checked', true);
     };
 }
 
@@ -254,10 +254,10 @@ function actionText($obj, data) {
 
     if(focusType)
         switch(focusType.charAt(0)) {
-            case "s":
+            case 's':
                 selEnd = selStart;
                 break;
-            case "e":
+            case 'e':
                 selStart = selEnd;
                 break;
         }
@@ -328,7 +328,7 @@ window.kbNav = kbNav = {
     showPrompt: function(focusBack) {
         $prompt.width('20pt'); // to get a nice sliding animation when it comes out
 
-        $prompt.removeClass("kbNav-inactive").focus();
+        $prompt.removeClass('kbNav-inactive').focus();
 
         if(focusBack !== undefined)
             $prompt.blur(function() {
@@ -446,9 +446,9 @@ window.kbNav = kbNav = {
      * because chrome returns a blank string when asking for a button's default label.
      */
     defaultButtonLbl: {
-        button: "",
-        submit: "Submit Query",
-        reset: "Reset"
+        button: '',
+        submit: 'Submit Query',
+        reset: 'Reset'
     },
 
     /*
@@ -458,7 +458,7 @@ window.kbNav = kbNav = {
      */
     processLabel: {
         input: function(sc, $o) {
-            var type = $o.attr("type").toLowerCase(),
+            var type = $o.attr('type').toLowerCase(),
             defaultName = kbNav.defaultButtonLbl[type];
             kbNav.labelizeInput(sc, $o, defaultName);
         }
@@ -471,7 +471,7 @@ window.kbNav = kbNav = {
     processAction: {
         a: actionHref,
         input: function($o, data) {
-            var type = $o.attr("type").toLowerCase();
+            var type = $o.attr('type').toLowerCase();
             var action = kbNav.inputAction[type];
             if(action !== undefined)
                 return action($o, data);
@@ -500,7 +500,7 @@ window.kbNav = kbNav = {
      */
     labelizeInside: function(sc, $obj) {
         var name = $obj.text(),
-        prefix = sc + ") ";
+        prefix = sc + ') ';
 
         if(name.substr(0, prefix.length) !== prefix)
             $obj.prepend(prefix);
@@ -510,12 +510,12 @@ window.kbNav = kbNav = {
      * Labelizes an input element, where the text shown is inside the value attribute.
      */
     labelizeInput: function(sc, $obj, defaultName) {
-        var prefix = sc + ") ";
-        var placeholder = $obj.attr("placeholder");
+        var prefix = sc + ') ';
+        var placeholder = $obj.attr('placeholder');
         if(placeholder) {
             // if there's a placeholder, modify it instead
             if(placeholder.substr(0, prefix.length) !== prefix)
-                $obj.attr("placeholder", prefix + placeholder);
+                $obj.attr('placeholder', prefix + placeholder);
         }
         else {
             var name = $obj.val();

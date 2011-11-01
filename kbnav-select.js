@@ -9,14 +9,14 @@ function actionSelect($obj, autonum, nums) {
         $obj.focus();
         var $copy = $obj.clone();
         var pos = $obj.position();
-        $("body").append('<div id="' + POPUP_ID + '"></div>');
-        var top = getDropDownTop($obj, $copy, ($obj.attr("size") > 1));
+        $('body').append('<div id="' + POPUP_ID + '"></div>');
+        var top = getDropDownTop($obj, $copy, ($obj.attr('size') > 1));
         var $box = $('#' + POPUP_ID);
 
         copySelected($obj.get(0).options, $copy.get(0).options);
 
         kbNav.push();
-        var $options = $("option", $copy);
+        var $options = $('option', $copy);
         var i = 0;
         $options.each(function() {
             var opt = this,
@@ -30,15 +30,15 @@ function actionSelect($obj, autonum, nums) {
                     $copy.focus();
                     opt.selected = !opt.selected;
                 });
-                $o.prepend(num + ") ");
+                $o.prepend(num + ') ');
             }
             i++;
         });
 
         $box.css({
-            position: "absolute",
-            top: top + "px",
-            left: pos.left + "px"
+            position: 'absolute',
+            top: top + 'px',
+            left: pos.left + 'px'
         }).append($copy);
 
         var openingCommandPrompt = false;
@@ -83,7 +83,7 @@ function getDropDownTop($target, $copy, isML) {
 
     var select = $copy.get(0);
     select.size = select.options.length;
-    var $elem = $copy.appendTo("body");
+    var $elem = $copy.appendTo('body');
     var targetHeight = $copy.outerHeight();
     $elem.remove();
 
