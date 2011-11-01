@@ -42,7 +42,8 @@ function a_to_f(a, options) {
     return actionize(a, options);
 }
 
-function getAction(sc) {
+// @returns all the action funcs bound to the specified shortcut (sc)
+function getActions(sc) {
     var fs = [];
     for(var k in actionGroups) {
         var group = actionGroups[k];
@@ -58,35 +59,40 @@ function getAction(sc) {
     return fs;
 }
 
-function showCommand(firstChar, $focusBack) {
-    kbNav.showPrompt($focusBack);
-    $prompt.one("keydown", firstChar, makeSureTheresOne).one("keyup", firstChar, makeSureTheresOne);
+function showCommand(firstChar) {
+    kbNav.showPrompt();
+
+    // needed because in firefox, the prompt will not get the first character
+    $prompt.one("keydown", firstChar, ensureOneChar).one("keyup", firstChar, ensureOneChar);
 }
 
-function makeSureTheresOne(event) {
+// makes sure there's a character in the prompt
+function ensureOneChar(event) {
     if($prompt.val().length === 0)
         $prompt.val(event.data);
 }
 
 function hideCommand() {
     $prompt.addClass("kbNav-inactive");
-    $prompt.keydown().keyup(); // fire the makeSureTheresOne events
+    $prompt.keydown().keyup(); // fire the ensureOneChar events
     $prompt.val(""); // clear it for future use
 }
 
 function acceptInput(e) {
+    // make sure you don't intercept other shorcuts
     if(e.ctrlKey || e.altKey)
         return;
 
     // make sure you don't intercept input text
-    if(isNoFocus()) {
-        var keycode = e.which;
+    if(!isNoFocus())
+        return;
 
-        var input = String.fromCharCode(keycode);
+    var keycode = e.which;
 
-        if(input.match(/\w/))
-            showCommand(input);
-    }
+    var input = String.fromCharCode(keycode);
+
+    if(input.match(/\w/))
+        showCommand(input);
 }
 
 function escPressed(e) {
@@ -101,7 +107,7 @@ function enterPressed(e) {
     if(keycode === 13) { // enter
         var val = $prompt.val();
 
-        var funcs = getAction(val);
+        var funcs = getActions(val);
         if(funcs.length > 0) {
             $prompt.blur();
             for(var i=0, l=funcs.length; i < l; i++) {
@@ -154,6 +160,7 @@ function init(options) {
 
 // everything below is non-commandprompt specific
 
+// sets the selection in a text element
 function setSelectionRange(input, selectionStart, selectionEnd) {
     if(input.setSelectionRange) {
         input.focus();
@@ -236,6 +243,7 @@ function actionFile($obj) {
 function actionText($obj, data) {
     var focusType = data.focusType;
 
+    // closures so selEnd will be the length at the time of actionizing
     var selStart = function() {
         return 0;
     },

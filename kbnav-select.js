@@ -1,15 +1,17 @@
 (function(){
 var kbNav = window.kbNav;
 
+var POPUP_ID = 'kbNavSelectBox';
+
 function actionSelect($obj, autonum, nums) {
     return function() {
         var hasNums = false;
         $obj.focus();
         var $copy = $obj.clone();
         var pos = $obj.position();
-        $("body").append('<div id="kbNavSelectBox"></div>');
+        $("body").append('<div id="' + POPUP_ID + '"></div>');
         var top = getDropDownTop($obj, $copy, ($obj.attr("size") > 1));
-        var $box = $("#kbNavSelectBox");
+        var $box = $('#' + POPUP_ID);
 
         copySelected($obj.get(0).options, $copy.get(0).options);
 
@@ -93,42 +95,48 @@ function getDropDownTop($target, $copy, isML) {
 
     var setTop;
     var setHeight;
+    console.log('isml', isML);
     if(isML) {
-        // if multiline, place popup box on top of the select on the page
+        // if multiline, place popup box over the select
         var center = pos.top + height/2;
         var radius = targetHeight/2;
 
         if(targetHeight <= height) {
+            // popup box fits within the select
             setHeight = height;
             setTop = pos.top;
         }
-        else if(center + radius <= scrollTop + windowHeight && center - radius >= scrollTop) {
+        else if(center - radius >= scrollTop && center + radius <= scrollTop + windowHeight) {
+            // popup box is centered on the middle of the select
             setHeight = targetHeight;
             setTop = center - radius;
         }
         else {
+            // popup box is centered on the middle of the screen
             setHeight = Math.min(targetHeight, windowHeight);
-            setTop = (pos.top - spaceAbove) + (windowHeight - setHeight)/2;
+            setTop = scrollTop + (windowHeight - setHeight) / 2;
         }
     }
     else {
-        // if not, place popup box under the select on the page
+        // if not, place popup box under the select
         if(targetHeight <= spaceBelow) {
-            setHeight = Math.min(targetHeight, spaceBelow);
+            // popup box fits below the select
+            setHeight = targetHeight;
             setTop = pos.top + height;
         }
-        else
-            if(targetHeight <= spaceAbove) {
-                setHeight = Math.min(targetHeight, spaceAbove);
-                setTop = pos.top - setHeight;
-            }
-            else {
-                setHeight = Math.min(targetHeight, windowHeight);
-                setTop = (pos.top - spaceAbove) + (windowHeight - setHeight) / 2;
-            }
+        else if(targetHeight <= spaceAbove) {
+            // popup box fits above the select
+            setHeight = targetHeight;
+            setTop = pos.top - setHeight;
+        }
+        else {
+            // popup box is centered on the middle of the screen
+            setHeight = Math.min(targetHeight, windowHeight);
+            setTop = scrollTop + (windowHeight - setHeight) / 2;
+        }
     }
 
-    $copy.css("height", setHeight + "px");
+    $copy.height(setHeight);
     return setTop;
 }
 
