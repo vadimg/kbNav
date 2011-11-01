@@ -16,6 +16,8 @@ function actionSelect($obj, autonum, nums) {
         copySelected($obj.get(0).options, $copy.get(0).options);
 
         kbNav.push();
+
+        // number the options and register kbNav handlers for them
         var $options = $('option', $copy);
         var i = 0;
         $options.each(function() {
@@ -81,8 +83,11 @@ function getDropDownTop($target, $copy, isML) {
     var height = $target.outerHeight();
     var scrollTop = $(window).scrollTop();
 
+    // make the selet display all of its options
     var select = $copy.get(0);
     select.size = select.options.length;
+
+    // temporarily insert it into the page to see its height
     var $elem = $copy.appendTo('body');
     var targetHeight = $copy.outerHeight();
     $elem.remove();
