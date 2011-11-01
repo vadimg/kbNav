@@ -95,7 +95,6 @@ function getDropDownTop($target, $copy, isML) {
 
     var setTop;
     var setHeight;
-    console.log('isml', isML);
     if(isML) {
         // if multiline, place popup box over the select
         var center = pos.top + height/2;
