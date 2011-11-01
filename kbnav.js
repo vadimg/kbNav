@@ -84,7 +84,7 @@ function acceptInput(e) {
         return;
 
     // make sure you don't intercept input text
-    if(!isNoFocus())
+    if(!hasNoFocus())
         return;
 
     var keycode = e.which;
@@ -95,14 +95,14 @@ function acceptInput(e) {
         showCommand(input);
 }
 
-function escPressed(e) {
+function onKeyDown(e) {
     var keycode = e.which;
-    if(keycode === 27 && !isNoFocus()) { // esc
+    if(keycode === 27 && !hasNoFocus()) { // esc
         $(document.activeElement).blur();
     }
 }
 
-function enterPressed(e) {
+function onKeyUp(e) {
     var keycode = e.which;
     if(keycode === 13) { // enter
         var val = $prompt.val();
@@ -122,7 +122,8 @@ function enterPressed(e) {
     }
 }
 
-function isNoFocus() {
+// @returns true if there is no element with focus on the screen
+function hasNoFocus() {
     var nodename = document.activeElement.nodeName.toLowerCase();
 
     return (nodename === "body" || nodename === "html");
@@ -151,11 +152,11 @@ function init(options) {
 
     $prompt.autoResize();
 
-    $prompt.blur(hideCommand).keyup(enterPressed);
+    $prompt.blur(hideCommand).keyup(onKeyUp);
 
     $(document).keypress(acceptInput);
 
-    $(document).keydown(escPressed);
+    $(document).keydown(onKeyDown);
 }
 
 // everything below is non-commandprompt specific
