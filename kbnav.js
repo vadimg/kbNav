@@ -1,4 +1,4 @@
-(function(){
+(function(window, $){
 
 var PROMPT_ID = 'kbNav-prompt';
 
@@ -6,8 +6,6 @@ var inited,
 $prompt,
 prompt_init_width,
 kbNav,
-window = this,
-$ = window.jQuery,
 document = window.document,
 actionGroups = {}, // name -> ActionGroup
 defaultGroup = 'default',
@@ -315,6 +313,24 @@ function registerM(input, options) {
     init(options);
 }
 
+// if label is undefined, the action element will be labelized. if null, it will not be labelized
+function register(sc, action, label, options) {
+	if(label === undefined) {
+		label = action;
+	}
+
+	var labelizer = (options && options.labelizer) ? options.labelizer: kbNav.labelize;
+	
+	if(label !== null)
+		labelizer(sc, label);
+
+	if(options && options.group !== undefined)
+		data.group = options.group;
+
+	if(action !== undefined)
+		registerF(sc, action, options);
+}
+
 window.kbNav = kbNav = {
     /*
      * A map of name -> {@link ActionGroups}.
@@ -534,4 +550,4 @@ window.kbNav = kbNav = {
 
 };
 
-})();
+})(this, jQuery);
