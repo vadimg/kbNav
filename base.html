@@ -1,0 +1,62 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="description" content="kbNav, keyboard navigation made easy" />
+    <meta name="keywords" content="kbnav,keyboard navigation,fast ui,javascript framework" />
+    <meta name="robots" content="all" />
+
+    <title>kvNav - {{ page.title }}</title>
+    <link rel="stylesheet" href="css/site.css" />
+
+    <link rel="stylesheet" type="text/css" href="css/kbnav.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script> 
+    <script type="text/javascript" src="lib/kbnav.js"></script>
+    <script type="text/javascript" src="lib/kbnav-select.js"></script>
+</head>
+
+<body>
+
+<div id="header-container">
+    <div class="main-border-left"/></div>
+    <div id="header">
+        <a href="/" id="home_link" title="h) home"><img src="images/logo.png" id="logo" /></a>
+        <div id="site-nav">
+            <ul class="unalpha">
+                <li class="first"><a href="documentation.php" id="doc_link">Documentation</a></li>
+                <li><a href="examples.php" id="example_link">Examples</a></li>
+                <li><a href="http://github.com/kbnav/kbNav" target="_blank" id="code_link">Code</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-border-right"/></div>
+</div>
+
+<div id="main-container">
+    <div class="main-border-left"/></div>
+    <div id="main">
+        <div id="content">
+            {{content}}
+        </div>
+    </div>
+    <div class="main-border-right"/></div>
+</div>
+
+<div id="footer">copyleft 2010
+</div>
+
+<script type="text/javascript">
+    kbNav.register({
+        d: { b: $("#doc_link").get(0) },
+        c: { b: $("#code_link").get(0) },
+        e: { b: $("#example_link").get(0) },
+        g: { b: $("#gm_link").get(0) },
+        h: { a: $("#home_link").get(0) },
+    });
+</script>
+
+</body>
+</html>

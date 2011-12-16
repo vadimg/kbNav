@@ -1,0 +1,519 @@
+---
+layout: base
+title: Examples
+---
+<script type="text/javascript">
+    $(document).ready(function(){
+        var map = {
+            "easter egg": {
+                a: function(){
+                    alert("Most boring easter egg ever.");
+                }
+            },
+            0: {
+                a: function(){
+                    alert("Custom function alert!");
+                }
+            },
+            999: {
+                l: $("#n999").get(0),
+                a: function(){
+                    alert("fooled you!");
+                }
+            },
+            1: {
+                l: $("#n1").get(0),
+                a: [$("#n1").get(0), function(){alert('another hi')}, function(){alert('another hi2')}]
+            },
+            2: {
+                b: $("#n2").get(0)
+            },
+            220: {
+                b: $("#n220").get(0)
+            },
+            221: {
+                b: $("#n221").get(0)
+            },
+            222: {
+                b: $("#n222").get(0)
+            },
+            3: {
+                b: $("#n3").get(0)
+            },
+            351: {
+                b: $("#ahrefc1").get(0)
+            },
+            352: {
+                b: $("#ahrefc2").get(0)
+            },
+            353: {
+                b: $("#ahref1").get(0)
+            },
+            354: {
+                b: $("#ahref2").get(0)
+            },
+            4: {
+                l: $("#ols_label").get(0),
+                a: $("#ols").get(0),
+                focusType: "start"
+            },
+            5: {
+                l: $("#ole_label").get(0),
+                a: $("#ole").get(0),
+                focusType: "end"
+            },
+            6: {
+                l: $("#ml_label").get(0),
+                a: $("#ml").get(0)
+            },
+            7: {
+                b: $("#n7").get(0)
+            },
+            75: {
+                b: $("#n75").get(0)
+            },
+            8: {
+                b: $("#n8").get(0)
+            },
+            9: {
+                b: $("#n9").get(0)
+            },
+            10: {
+                b: $("#n10").get(0)
+            },
+            11: {
+                b: $("#n11").get(0)
+            },
+            12: {
+                l: $("#cb_label").get(0),
+                a: $("#n12").get(0)
+            },
+            13: {
+                l: $("#cb_label2").get(0),
+                a: $("#n13").get(0)
+            },
+            14: {
+                l: $("#cb_label3").get(0),
+                a: $("#n14").get(0)
+            },
+            15: {
+                l: $("#ir_label").get(0),
+                a: $("#n15").get(0)
+            },
+            16: {
+                l: $("#ir_label2").get(0),
+                a: $("#n16").get(0)
+            },
+            17: {
+                l: $("#rg1_label").get(0),
+                a: $("#n17").get(0)
+            },
+            18: {
+                l: $("#rg1_label2").get(0),
+                a: $("#n18").get(0)
+            },
+            19: {
+                l: $("#rg2_label").get(0),
+                a: $("#n19").get(0)
+            },
+            20: {
+                l: $("#rg2_label2").get(0),
+                a: $("#n20").get(0)
+            },
+            21: {
+                l: $("#pw_label").get(0),
+                a: $("#n21").get(0)
+            },
+            22: {
+                l: $("#file_label").get(0),
+                a: $("#n22").get(0)
+            },
+            100: {
+                l: $("#select_label").get(0),
+                a: $("#n100").get(0),
+                nums: [1, 9]
+            },
+            101: {
+                l: $("#select_label2").get(0),
+                a: $("#n101").get(0)
+            },
+            102: {
+                l: $("#select_label3").get(0),
+                a: $("#n102").get(0),
+                autoNum: true
+            },
+            200: {
+                l: $("#mlselect_label").get(0),
+                a: $("#n200").get(0),
+                nums: [1, 9]
+            },
+            201: {
+                l: $("#mlselect_label2").get(0),
+                a: $("#n201").get(0)
+            },
+            202: {
+                l: $("#mlselect_label3").get(0),
+                a: $("#n202").get(0),
+                autoNum: true
+            },
+            300: {
+                l: $("#mselect_label").get(0),
+                a: $("#n300").get(0),
+                autoNum: true
+            }
+        };
+        kbNav.register(map);
+        kbNav.register({
+            cl: {
+                b: $("#ncl1").get(0)
+            }
+        }, {labelizer: function(num, elem){
+            $(elem).prepend(num + ": ");
+        }});
+    });
+</script>
+
+<form action="http://yahoo.com">
+<p>0 is a custom function!</p>
+<div id="n999">Just a normal div... OR IS IT??!!</div>
+<p><a id="ncl1" href="javascript:alert('hi from the custom label');">javascript: in href, cusom labelizer</a></p>
+<p><a id="n1" href="javascript:alert('hi');">javascript: in href</a></p>
+<p><a id="n2" href="http://google.com">URL in href</a></p>
+<p><a id="n220" href="http://google.com" target="_top">URL in href (target top)</a></p>
+<p><a id="n221" href="http://google.com" target="_parent">URL in href (target parent)</a></p>
+<p><a id="n222" href="http://google.com" target="_self">URL in href (target self)</a></p>
+<p><a id="n3" href="#test" onMouseDown="alert('mousedown');" onMouseUp="alert('mouseup');" onClick="alert('whats clickin');">onClick (mousedown, mouseup)</a></p>
+<p><a href="#test" id="ahrefc1" onClick="alert('whats up');">onClick, return false</a></p>
+<p><a href="#test" id="ahrefc2" onClick="alert('whats up');">onClick, no return false</a></p>
+<p><a href="#test" id="ahref1">jquery onClick</a></p>
+<p><a href="#test" id="ahref2">jquery onClick, prevent default</a></p>
+<p><a href="#test">No Num</a></p>
+<p><div id="ols_label">One line (start):</div> <input type="text" id="ols" value="text"/></p>
+<p><div id="ole_label">One line (end):</div> <input type="text"  id="ole" value="text"/></p>
+<p><div id="ml_label">Multiline (select):</div> <textarea rows=5 id="ml" cols=20>text</textarea></p>
+
+<p>
+    <input id="n7" type="button" value="Input Button" onmousedown="alert('mousedown');" onmouseup="alert('mouseup');" onClick="alert('button clicked');"/>
+    <button id="n75" onClick="alert('button-tag button clicked');return false;">Button</button>
+    <input id="n8" type="reset"/>
+    <input id="n9" type="reset" value="Custom Reset Value"/>
+    <input id="n10" type="submit" />
+    <input id="n11" type="submit" value="Submit"/>
+    <input type="submit" />
+</p>
+<p>
+    <input id="n12" type="checkbox"/> <span id="cb_label">checkbox</span><br/>
+    <input id="n13" type="checkbox"/> <span id="cb_label2">checkbox2</span><br/>
+    <input id="n14" type="checkbox"/> <span id="cb_label3">checkbox3</span><br/>
+    <input type="checkbox"/> <span id="cb_label4">"normal" checkbox</span><br/>
+</p>
+<p>
+    <input id="n15" type="radio"/> <span id="ir_label">indepedent radio</span><br/>
+    <input id="n16" type="radio"/> <span id="ir_label2">indepedent radio2</span><br/>
+    <input id="n17" type="radio" name="group1"/> <span id="rg1_label">radio group 1 (1)</span><br/>
+    <input id="n18" type="radio" name="group1"/> <span id="rg1_label2">radio group 1 (2)</span><br/>
+    <input id="n19" type="radio" name="group2"/> <span id="rg2_label">radio group 2 (1)</span><br/>
+    <input id="n20" type="radio" name="group2"/> <span id="rg2_label2">radio group 2 (2)</span><br/>
+    <input type="radio" name="group2"/> <span id="rg2_label3">radio group 2 (normal button)</span><br/>
+</p>
+<p>
+    <span id="pw_label">Password: </span><input id="n21" type="password" />
+</p>
+<p>
+    <span id="file_label">Choose file: </span><input id="n22" type="file"/> (can't be supported by firefox, due to stupid "security" concerns)
+</p>
+<p>
+    <span id="select_label">Select (custom num): </span><select id="n100">
+        <option>Option</option>
+        <option>Really,Really,Really Long Optoin</option>
+    </select><br>
+    <span id="select_label2">Big Select (no num): </span><select id="n101">
+        <option>Option</option>
+        <option>Really,Really,Really Long Option</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+    </select><br>
+    <span id="select_label3">Huge Select (autonum): </span><select id="n102">
+        <option>Option</option>
+        <option>Really,Really,Really Long Option</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+    </select>
+</p>
+<p>
+        <span id="mlselect_label">Multi-Line Select (custom num): </span><select id="n200" size=2>
+        <option>Option</option>
+        <option>Really,Really,Really Long Optoin</option>
+    </select><br/>
+    <span id="mlselect_label2">Big Multi-Line Select (no num): </span><select id="n201" size=5>
+        <option>Option</option>
+        <option>Really,Really,Really Long Option</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+    </select><br/>
+    <span id="mlselect_label3">Huge Multi-Line Select (autonum): </span><select id="n202" size=5>
+        <option>Option</option>
+        <option>Really,Really,Really Long Option</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+    </select>
+</p>
+<p>
+    <span id="mselect_label">Big Multi-Select: </span><select id="n300" multiple size=5>
+        <option>Option</option>
+        <option>Really,Really,Really Long Option</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+        <option>blah</option>
+    </select>
+</p>
+<p>
+    These don't work, because there's no way:
+    <input type="hidden" />
+    <input type="image" />
+</p>
+
+<p>This does not work, and likely never will ): 
+    <input onfocus="if (this.value == 'Label') this.value='';" onblur="if (this.value == '') this.value='Label';" value="Label" type="text" size="17"/>
+</p>
+</form>
+
+<script type="text/javascript">
+    $("#ahref1").click(function(event){
+      alert( "what's up1" );
+    });
+    $("#ahref2").click(function(event){
+      alert( "what's up2" );
+      event.preventDefault();
+    });
+    
+    $("#ahrefc1").click(function(){
+        alert("c1");
+    }).click(function(){
+        alert("c2 (return false)");
+        return false;
+    }).click(function(){
+        alert("c3");
+    });
+    
+    $("#ahrefc2").click(function(){
+        alert("c1");
+    }).click(function(){
+        alert("c2");
+    }).click(function(){
+        alert("c3");
+    });
+</script>
