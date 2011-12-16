@@ -26,9 +26,9 @@
         <a href="/" id="home_link" title="h) home"><img src="images/logo.png" id="logo" /></a>
         <div id="site-nav">
             <ul class="unalpha">
-                <li class="first"><a href="documentation.php" id="doc_link">Documentation</a></li>
-                <li><a href="examples.php" id="example_link">Examples</a></li>
-                <li><a href="http://github.com/kbnav/kbNav" target="_blank" id="code_link">Code</a></li>
+                <li class="first"><a href="documentation.html" id="doc_link">Documentation</a></li>
+                <li><a href="examples.html" id="example_link">Examples</a></li>
+                <li><a href="http://github.com/vadimg/kbNav" target="_blank" id="code_link">Code</a></li>
             </ul>
         </div>
     </div>
@@ -39,7 +39,7 @@
     <div class="main-border-left"/></div>
     <div id="main">
         <div id="content">
-            {{content}}
+            {{ content }}
         </div>
     </div>
     <div class="main-border-right"/></div>
@@ -53,7 +53,6 @@
         d: { b: $("#doc_link").get(0) },
         c: { b: $("#code_link").get(0) },
         e: { b: $("#example_link").get(0) },
-        g: { b: $("#gm_link").get(0) },
         h: { a: $("#home_link").get(0) },
     });
 </script>
