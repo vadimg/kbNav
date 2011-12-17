@@ -65,7 +65,7 @@ kbNav.register({
 To associate the shortcut 'd' with a text box whose id is 'textbox' and put the appropriate label on a span with the id 'label', put this code in your page:
 <pre class="js code">
 kbNav.register({
-    d: {
+    f: {
         l: document.getElementById('label'),
         a: document.getElementById('textbox')
     }
@@ -98,6 +98,6 @@ The labelizer takes two arguments, the shortcut (a string or number), and the ta
     kbNav.register({
         a: { b: document.getElementById('button') },
         s: { b: document.getElementById('link') },
-        d: { l: document.getElementById('label'), a: document.getElementById('textbox') }
+        f: { l: document.getElementById('label'), a: document.getElementById('textbox') }
     });
 </script>
