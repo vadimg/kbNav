@@ -1,13 +1,10 @@
-(function(){
+(function(window, $){
 
 var PROMPT_ID = 'kbNav-prompt';
 
 var inited,
 $prompt,
-prompt_init_width,
 kbNav,
-window = this,
-$ = window.jQuery,
 document = window.document,
 actionGroups = {}, // name -> ActionGroup
 defaultGroup = 'default',
@@ -315,6 +312,22 @@ function registerM(input, options) {
     init(options);
 }
 
+kbNav = function(sc, action, label, options) {
+    var labelizer = (options && options.labelizer) ? options.labelizer: kbNav.labelize;
+
+    if(both !== undefined)
+        label = action = both;
+
+    if(label !== undefined)
+        labelizer(sc, label);
+
+    if(options && options.group !== undefined)
+        data.group = options.group;
+
+    if(action !== undefined)
+        registerF(sc, action, data);
+};
+
 window.kbNav = kbNav = {
     /*
      * A map of name -> {@link ActionGroups}.
@@ -534,4 +547,4 @@ window.kbNav = kbNav = {
 
 };
 
-})();
+})(window, jQuery);
