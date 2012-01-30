@@ -433,12 +433,12 @@ window.kbNav = kbNav = {
             group = sc_ns_a[1];
 
         if(sc.length > 0 && group !== undefined)
-            delete actionGroups[group].events[sc];
+            delete actionGroups[group].actions[sc];
         else if(group !== undefined)
             delete actionGroups[group];
         else if(sc.length > 0)
             for(var ns in actionGroups)
-                delete actionGroups[ns].events[sc];
+                delete actionGroups[ns].actions[sc];
     },
 
     /*
