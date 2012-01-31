@@ -191,25 +191,22 @@ function actionHref($obj) {
         if(clickEvent.result !== false) { // TODO: && !clickEvent.isDefaultPrevented() ? (shouldn't guarantee any behavior based on jquery)
             var target = $obj.attr('target'),
             targetMap = {
-                '_top': top,
-                '_self': self,
-                '_parent': parent
+                '_blank': true,
+                '_parent': true,
+                '_self': true,
+                '_top': true
             },
             href = $obj.attr('href');
 
             if(!target) // is blank if it doesn't exist
                 document.location = href;
-            else if(target === '_new' || target === '_blank') {
+            else if(targetMap[target] || top.frames[target] === undefined) {
                 var oWin = window.open(href, target);
                 if(oWin)
                     $(oWin).focus();
             }
             else {
-                var tmr = targetMap[target];
-                if(tmr !== undefined)
-                    tmr.location = href;
-                else
-                    top.frames[target].location = href;
+                top.frames[target].location = href;
             }
         }
     };
