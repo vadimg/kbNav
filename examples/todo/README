@@ -1,0 +1,4 @@
+Requires node.js and mongodb.
+
+To run:
+node app.js
